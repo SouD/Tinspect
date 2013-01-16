@@ -1,0 +1,376 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+	
+	<Include file="ChatThrottleLib\ChatThrottleLib.xml"/>
+	
+	<Script file="TI_strings.lua" />
+	<Script file="TI_talents.lua" />
+	<Script file="TI_core.lua" />
+	
+	<Button name="TI_TalentButtonTemplate" inherits="ItemButtonTemplate" virtual="true">
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentSlot" file="Interface\Buttons\UI-EmptySlot-White">
+					<Size>
+						<AbsDimension x="64" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentRankBorder" file="Interface\TalentFrame\TalentFrame-RankBorder">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentRank" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="$parentRankBorder">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				TInspect_TalentFrameTalent_OnEnter();
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Frame name="TInspect_InspectTalentFrameTemplate" virtual="true" setAllPoints="true" hidden="true" parent="InspectFrame">
+		<HitRectInsets>
+			<AbsInset left="0" right="30" top="0" bottom="45"/>
+		</HitRectInsets>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="258" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-257"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="258" y="-257"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="TInspect_InspectTalentFrameBackgroundTopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="23" y="-77"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="TInspect_InspectTalentFrameBackgroundTopRight">
+					<Size>
+						<AbsDimension x="64" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="TInspect_InspectTalentFrameBackgroundTopLeft" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="TInspect_InspectTalentFrameBackgroundBottomLeft">
+					<Size>
+						<AbsDimension x="256" y="167"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="TInspect_InspectTalentFrameBackgroundTopLeft" relativePoint="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="TInspect_InspectTalentFrameBackgroundBottomRight">
+					<Size>
+						<AbsDimension x="64" y="167"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="TInspect_InspectTalentFrameBackgroundTopLeft" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<!--
+				<Texture name="TInspect_InspectTalentFramePointsLeft" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="InspectFrame">
+							<Offset>
+								<AbsDimension x="75" y="-48"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="TInspect_InspectTalentFramePointsMiddle" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="248" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="TInspect_InspectTalentFramePointsLeft" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="TInspect_TalentFramePointsRight" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="TInspect_InspectTalentFramePointsMiddle" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+				</Texture>
+				-->
+				<FontString name="TInspect_InspectTalentFrameMessage" inherits="GameFontNormalSmall" text="MessageGoesHere">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="InspectFrame">
+							<Offset>
+								<AbsDimension x="5" y="-40"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="TInspect_InspectTalentFrameButton1" inherits="UIPanelButtonTemplate" hidden="true" id="1">
+				<Size>
+					<AbsDimension x="80" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="InspectFrame">
+						<Offset>
+							<AbsDimension x="76" y="-52"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						TInspect_InspectTalentFrameButton_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="TInspect_InspectTalentFrameButton2" inherits="UIPanelButtonTemplate" hidden="true" id="2">
+				<Size>
+					<AbsDimension x="80" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="TInspect_InspectTalentFrameButton1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						TInspect_InspectTalentFrameButton_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="TInspect_InspectTalentFrameButton3" inherits="UIPanelButtonTemplate" hidden="true" id="3">
+				<Size>
+					<AbsDimension x="80" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="TInspect_InspectTalentFrameButton2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						TInspect_InspectTalentFrameButton_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<ScrollFrame name="TI_TalentFrameScrollFrame" inherits="UIPanelScrollFrameTemplate">
+        <Size>
+          <AbsDimension x="296" y="350"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="-65" y="-77"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+              <Size>
+                <AbsDimension x="31" y="256"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+                  <Offset>
+                    <AbsDimension x="-2" y="5"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+              <TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+            </Texture>
+            <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+              <Size>
+                <AbsDimension x="31" y="106"/>
+              </Size>
+              <Anchors>
+                <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+                  <Offset>
+                    <AbsDimension x="-2" y="-2"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+              <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <ScrollChild>
+          <Frame name="TI_TalentFrameScrollChildFrame">
+            <Size>
+              <AbsDimension x="320" y="50"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT"/>
+            </Anchors>
+            <Frames>
+              <Button name="TI_TalentFrameTalent1" inherits="TI_TalentButtonTemplate" id="1"/>
+              <Button name="TI_TalentFrameTalent2" inherits="TI_TalentButtonTemplate" id="2"/>
+              <Button name="TI_TalentFrameTalent3" inherits="TI_TalentButtonTemplate" id="3"/>
+              <Button name="TI_TalentFrameTalent4" inherits="TI_TalentButtonTemplate" id="4"/>
+              <Button name="TI_TalentFrameTalent5" inherits="TI_TalentButtonTemplate" id="5"/>
+              <Button name="TI_TalentFrameTalent6" inherits="TI_TalentButtonTemplate" id="6"/>
+              <Button name="TI_TalentFrameTalent7" inherits="TI_TalentButtonTemplate" id="7"/>
+              <Button name="TI_TalentFrameTalent8" inherits="TI_TalentButtonTemplate" id="8"/>
+              <Button name="TI_TalentFrameTalent9" inherits="TI_TalentButtonTemplate" id="9"/>
+              <Button name="TI_TalentFrameTalent10" inherits="TI_TalentButtonTemplate" id="10"/>
+              <Button name="TI_TalentFrameTalent11" inherits="TI_TalentButtonTemplate" id="11"/>
+              <Button name="TI_TalentFrameTalent12" inherits="TI_TalentButtonTemplate" id="12"/>
+              <Button name="TI_TalentFrameTalent13" inherits="TI_TalentButtonTemplate" id="13"/>
+              <Button name="TI_TalentFrameTalent14" inherits="TI_TalentButtonTemplate" id="14"/>
+              <Button name="TI_TalentFrameTalent15" inherits="TI_TalentButtonTemplate" id="15"/>
+              <Button name="TI_TalentFrameTalent16" inherits="TI_TalentButtonTemplate" id="16"/>
+              <Button name="TI_TalentFrameTalent17" inherits="TI_TalentButtonTemplate" id="17"/>
+              <Button name="TI_TalentFrameTalent18" inherits="TI_TalentButtonTemplate" id="18"/>
+              <Button name="TI_TalentFrameTalent19" inherits="TI_TalentButtonTemplate" id="19"/>
+              <Button name="TI_TalentFrameTalent20" inherits="TI_TalentButtonTemplate" id="20"/>
+            </Frames>
+          </Frame>
+        </ScrollChild>
+      </ScrollFrame>
+		</Frames>
+	</Frame>
+	
+	<Button name="TInspect_InspectFrameTabButtonTemplate" virtual="true" inherits="CharacterFrameTabButtonTemplate">
+		<Scripts>
+			<OnClick>
+				InspectFrameTab_OnClick();
+			</OnClick>
+			<OnEnter>
+				GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
+				GameTooltip:SetText("Inspect talents", 1.0, 1.0, 1.0);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Frame name="TInspect">
+		<Scripts>
+			<OnLoad>
+				this:RegisterEvent("ADDON_LOADED");
+				this:RegisterEvent("PLAYER_LOGOUT");
+				this:RegisterEvent("PLAYER_ALIVE");
+				this:RegisterEvent("CHARACTER_POINTS_CHANGED");
+				this:RegisterEvent("CHAT_MSG_ADDON");
+				
+				TInspect_OnLoad(this);
+			</OnLoad>
+			<OnUpdate>
+				TInspect_OnUpdate();
+			</OnUpdate>
+			<OnEvent>
+				TInspect_EventHandler();
+			</OnEvent>
+		</Scripts>
+	</Frame>
+</Ui>

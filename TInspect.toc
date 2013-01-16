@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: TInspect |cffffffff by Docent|r
+## Author: Docent
+## Version: 0.4
+## SavedVariables: TInspect_DB
+
+# Files
+TInspect.xml
